@@ -1,0 +1,151 @@
+﻿@model NoteApi__.NET_.DTO.UserRegistrationDto
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1 class="text-center my-4">Register</h1> 
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger" role="alert">
+        There were some errors with your registration. Please check the form below.
+    </div>
+}
+
+<form asp-action="Register" method="post" class="form-container">
+    <div class="form-group">
+        <label for="Email">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" required />
+        @if (ViewData.ModelState["Email"]?.Errors.Count > 0)
+        {
+            <div class="text-danger">
+                @foreach (var error in ViewData.ModelState["Email"].Errors)
+                {
+                    <div>@error.ErrorMessage</div>
+                }
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label for="Password">Password</label>
+        <input type="password" class="form-control" id="Password" name="Password" required />
+        @if (ViewData.ModelState["Password"]?.Errors.Count > 0)
+        {
+            <div class="text-danger">
+                @foreach (var error in ViewData.ModelState["Password"].Errors)
+                {
+                    <div>@error.ErrorMessage</div>
+                }
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label for="FirstName">First Name</label>
+        <input type="text" class="form-control" id="FirstName" name="FirstName" required />
+        @if (ViewData.ModelState["FirstName"]?.Errors.Count > 0)
+        {
+            <div class="text-danger">
+                @foreach (var error in ViewData.ModelState["FirstName"].Errors)
+                {
+                    <div>@error.ErrorMessage</div>
+                }
+            </div>
+        }
+    </div>
+    <div class="form-group">
+        <label for="LastName">Last Name</label>
+        <input type="text" class="form-control" id="LastName" name="LastName" required />
+        @if (ViewData.ModelState["LastName"]?.Errors.Count > 0)
+        {
+            <div class="text-danger">
+                @foreach (var error in ViewData.ModelState["LastName"].Errors)
+                {
+                    <div>@error.ErrorMessage</div>
+                }
+            </div>
+        }
+    </div>
+    <button type="submit" class="btn btn-success btn-lg">Register</button> 
+</form>
+
+<div class="text-center mt-3">
+    <p>Already have an account? <a href="/Home/Login" class="btn btn-link">Login</a></p> 
+</div>
+
+<style>
+    .form-container {
+        background-color: white;
+        border-radius: 10px;
+        padding: 30px;
+        width: 100%;
+        max-width: 400px; 
+        margin: 0 auto;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 30px; 
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    .btn {
+        width: 100%;
+        padding: 12px;
+        font-size: 1rem;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s;
+    }
+
+    .btn-success {
+        background-color: #66bb6a; 
+        border-color: #58a95b;
+        color: white;
+    }
+
+        .btn-success:hover {
+			background-color: #5a9e5c; 
+
+    .btn-link {
+        color: #4CAF50;
+        text-decoration: none;
+    }
+
+        .btn-link:hover {
+            color: #388e3c;
+        }
+
+    h1 {
+        color: #4CAF50;
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .text-center a {
+        color: #4CAF50;
+        text-decoration: none;
+    }
+
+        .text-center a:hover {
+            color: #388e3c;
+        }
+
+    .text-danger {
+        font-size: 0.875rem;
+        color: #f44336;
+    }
+</style>

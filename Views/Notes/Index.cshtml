@@ -1,0 +1,151 @@
+﻿@model IEnumerable<NoteApi__.NET_.Entities.Note>
+
+<div class="user-email">
+    @if (ViewData["UserEmail"] != null)
+    {
+        <span class="user-email-text">Logged in as: @ViewData["UserEmail"]</span>
+    }
+</div>
+
+<h1 class="text-center my-4">Your Notes</h1>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var note in Model)
+        {
+            <tr>
+                <td>@note.Title</td>
+                <td class="content-wrap">@note.Content</td>
+                <td>@note.CreatedAt.ToString("g")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@note.Id" class="btn btn-info btn-sm">Details</a>
+                    <a asp-action="Edit" asp-route-id="@note.Id" class="btn btn-success btn-sm">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@note.Id" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a asp-action="Create" class="btn btn-success btn-lg mt-4 d-block mx-auto">Add New Note</a>
+
+<style>
+table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    background-color: #f4f8f4;
+    font-size: 1rem;
+    color: #333333;
+    max-width: 250px;
+    white-space: normal;
+}
+
+.content-wrap {
+    color: #555555;
+    max-width: 250px;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn {
+    text-decoration: none;
+    font-size: 0.875rem;
+    padding: 8px 16px;
+    border-radius: 30px;
+    display: inline-block;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-info {
+    background-color: #57c4b1;
+    border-color: #4ba98b;
+    color: white;
+}
+
+.btn-info:hover {
+    background-color: #48a595;
+}
+
+.btn-success {
+    background-color: #66bb6a;
+    border-color: #58a95b;
+    color: white;
+}
+
+.btn-success:hover {
+    background-color: #5a9e5c;
+}
+
+.btn-danger {
+    background-color: #ff7043;
+    border-color: #f44336;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #e64a19;
+}
+
+tr:hover {
+    background-color: #f1f9f5;
+    transition: background-color 0.3s ease;
+}
+
+.btn-lg {
+    font-size: 1.25rem;
+    padding: 14px 28px;
+    background-color: #57c4b1;
+    border-color: #4ba98b;
+    display: block;
+    margin: 30px auto;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.btn-lg:hover {
+    background-color: #48a595;
+}
+
+h1 {
+    color: #4CAF50;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+}
+</style>
