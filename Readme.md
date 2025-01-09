@@ -3,8 +3,16 @@
 ## Table of Contents
 
 - [General Info](#general-info)
-- [Features](#Features)
-- [Endpoints](#Endpoints)
+- [Features](#features)
+- [Endpoints](#endpoints)
+    - [HomeController](#homecontroller)
+    - [NotesController](#notescontroller)
+    - [AdminController](#admincontroller)
+- [Database Schema](#database-schema)
+    - [Users Table](#users-table)
+    - [Notes Table](#notes-table)
+    - [Relationship between Users and Notes](#relationship-between-users-and-notes)
+- [Example User Login Credentials](#example-user-login-credentials)
 
 ## General Info <a name="general-info"></a>
 
@@ -12,7 +20,7 @@ This is a web application built with ASP.NET Core that allows users to manage th
 registration, login, and role-based access control. The application uses Microsoft Identity for user authentication and
 authorization, and it allows authenticated users to create, edit, delete, and view their personal notes.
 
-## Features <a name="Features"></a>
+## Features <a name="features"></a>
 
 - **User Registration**: Allows new users to create an account using their email and password.
 - **Login/Logout**: Users can log in to access their notes and log out when finished.
@@ -22,9 +30,9 @@ authorization, and it allows authenticated users to create, edit, delete, and vi
 - **Responsive Design**: The application is designed to be responsive and user-friendly on both desktop and mobile
   devices.
 
-## Endpoints <a name="Endpoints"></a>
+## Endpoints <a name="endpoints"></a>
 
-### HomeController
+### HomeController <a name="homecontroller"></a>
 
 | Method | URL              | Description                                                                                                                                                                                                    |
 |--------|------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -35,7 +43,7 @@ authorization, and it allows authenticated users to create, edit, delete, and vi
 | `Post` | `/Home/Login`    | Handles the form submission for logging in. If login is successful, the user is redirected to the Notes page. If the login attempt fails, an error message is displayed.                                       |
 | `Post` | `/Home/Logout`   | Logs the user out and redirects them to the login page. This action is protected with the [Authorize] attribute, ensuring it can only be accessed by authenticated users.                                      |
 
-### NotesController
+### NotesController <a name="notescontroller"></a>
 
 | Method | URL                   | Description                                                                                                                                                |
 |--------|-----------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -48,15 +56,15 @@ authorization, and it allows authenticated users to create, edit, delete, and vi
 | `Get`  | `/Notes/Delete/{id}`  | Displays the confirmation page to delete a specific note, ensuring that the note belongs to the authenticated user.                                        |
 | `Post` | `/Notes/Delete/{id}`  | Handles the deletion of a note, ensuring the note exists and belongs to the authenticated user. If valid, removes the note from the database.              |
 
-### AdminController
+### AdminController <a name="admincontroller"></a>
 
 | Method | URL            | Description                                                                                                               |
 |--------|----------------|---------------------------------------------------------------------------------------------------------------------------|
 | `Get`  | `/Admin/Index` | Displays a welcome message for the Admin user. The route is protected, so only users with the `Admin` role can access it. |
 
-## Database Schema
+## Database Schema <a name="database-schema"></a>
 
-### `Users` Table (Inherits from `IdentityUser`)
+### Users Table <a name="users-table"></a>
 
 | Column Name    | Data Type | Description                                                         |
 |----------------|-----------|---------------------------------------------------------------------|
@@ -68,7 +76,7 @@ authorization, and it allows authenticated users to create, edit, delete, and vi
 | `PasswordHash` | `string`  | The hashed password (inherited from `IdentityUser`).                |
 | `Role`         | `string`  | The role of the user (handled by `IdentityRole`).                   |
 
-### `Notes` Table
+### Notes Table <a name="notes-table"></a>
 
 | Column Name | Data Type  | Description                                                                         |
 |-------------|------------|-------------------------------------------------------------------------------------|
@@ -79,15 +87,14 @@ authorization, and it allows authenticated users to create, edit, delete, and vi
 | `UserId`    | `string`   | The foreign key linking to the `User` table.                                        |
 | `User`      | `User`     | Navigation property to the `User` table.                                            |
 
-### Relationship between `Users` and `Notes`
+### Relationship between Users and Notes <a name="relationship-between-users-and-notes"></a>
 
 - Each `User` can have multiple `Notes`, and each `Note` is associated with a single `User`.
 - The `Notes` table contains a foreign key (`UserId`) that links each note to a user.
 
-## Example User Login Credentials
+## Example User Login Credentials <a name="example-user-login-credentials"></a>
 
 | Email               | Password            | Role    | Description                                   |
 |---------------------|---------------------|---------|-----------------------------------------------|
 | `admin@example.com` | `AdminPassword123!` | `Admin` | Admin user with full access to the dashboard. |
 | `user1@example.com` | `UserPassword123!`  | `User`  | Regular user with access to personal notes.   |
-
