@@ -1,0 +1,17 @@
+﻿body {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+nav {
+    background-color: #1f1f1f;
+}
+
+.btn-secondary {
+    background-color: #495057;
+    color: #ffffff;
+}
+
+td {
+    color: #fff;
+}

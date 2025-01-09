@@ -1,0 +1,13 @@
+﻿body {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+nav {
+    background-color: #f8f9fa;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: #ffffff;
+}

@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/NoteApi__.NET_.styles.css" asp-append-version="true" />
+    <link id="theme-style" rel="stylesheet" href="/css/lightmode.css" />
 </head>
 <body>
     <div class="container">
@@ -20,7 +21,9 @@
                     <li class="nav-item">
                         <a class="nav-link" asp-action="Create" asp-controller="Notes">Create Note</a>
                     </li>
-                    @* Wyświetlanie przycisku "Logout" tylko dla zalogowanych użytkowników *@
+
+                    <button id="toggle-theme" class="btn btn-secondary">Switch Theme</button>
+
                     @if (User.Identity.IsAuthenticated)
                     {
                         <li class="nav-item">
@@ -48,6 +51,66 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        const themeStyle = document.getElementById("theme-style");
+
+        function initializeTheme() {
+            const currentTheme = getCookie("theme");
+            console.log("Current theme from cookie:", currentTheme);
+
+            if (currentTheme === "dark") {
+                themeStyle.href = "/css/darkmode.css";
+            } else {
+                themeStyle.href = "/css/lightmode.css";
+            }
+        }
+
+
+        function toggleTheme() {
+            const isLightMode = themeStyle.href.includes("lightmode.css");
+            console.log("Is Light Mode:", isLightMode);
+
+            if (isLightMode) {
+                themeStyle.href = "/css/darkmode.css";
+                setCookie("theme", "dark", 30);
+                console.log("Switched to dark mode");
+            } else {
+                themeStyle.href = "/css/lightmode.css";
+                setCookie("theme", "light", 30);
+                console.log("Switched to light mode");
+            }
+
+
+            console.log("Current theme after switch:", getCookie("theme"));
+            console.log("Theme href after switch:", themeStyle.href);
+        }
+
+
+        function setCookie(name, value, days) {
+            const date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            const expires = `expires=${date.toUTCString()}`;
+            document.cookie = `${name}=${value};${expires};path=/`;
+            console.log(`Cookie set: ${name}=${value}`);
+        }
+
+        function getCookie(name) {
+            const cookies = document.cookie.split(";").map(c => c.trim());
+            for (let cookie of cookies) {
+                if (cookie.startsWith(`${name}=`)) {
+                    return cookie.substring(name.length + 1);
+                }
+            }
+            return null;
+        }
+
+        document.getElementById("toggle-theme").addEventListener("click", toggleTheme);
+
+        initializeTheme();
+    </script>
+
+
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
