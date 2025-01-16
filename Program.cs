@@ -53,7 +53,20 @@ using (var scope = app.Services.CreateScope())
         await userManager.CreateAsync(newAdmin, "AdminPassword123!");
         await userManager.AddToRoleAsync(newAdmin, "Admin");
     }
+
+    var user = await userManager.FindByEmailAsync("user1@example.com");
+    if (user == null)
+    {
+        var newUser = new User
+        {
+            UserName = "user1@example.com",
+            Email = "user1@example.com"
+        };
+        await userManager.CreateAsync(newUser, "UserPassword123!");
+        await userManager.AddToRoleAsync(newUser, "User");
+    }
 }
+
 
 if (!app.Environment.IsDevelopment())
 {
